@@ -5,16 +5,16 @@ function Board() {
   // const squares = Array(9).fill(null)
   const [squares, setSquares] = React.useState(
     // Quando o componente Board for carregado (mount), leremos o valor
-    // 'squares' do localStorage para resturar o estado do jogo tal como
+    // 'squares' do localStorage para restaurar o estado do jogo tal como
     // o deixamos pela última vez.
     // O valor no localStorage estará no formato string, sendo necessário
     // convertê-lo de volta para vetor usando JSON.parse().
-    // Caso não exista o valor de 'squares' no localStoage, iniciamos
+    // Caso não exista o valor de 'squares' no localStorage, iniciamos
     // um vetor de nove valores null.
-    // Além disso, usaremos lazy initializer () => para garantir que 
+    // Além disso, usaremos lazy initializer () => para garantir que
     // a leitura do localStorage ocorra apenas uma vez.
-    () => JSON.parse(window.localStorage.getItem('squares')) ??
-    Array(9).fill(null)
+    () => JSON.parse(window.localStorage.getItem('squares')) ?? 
+      Array(9).fill(null)
   )
 
   // 🐨 Precisaremos dos seguintes itens de estados derivados:
@@ -68,9 +68,9 @@ function Board() {
   }
 
   // Após cada vez que a variável squares for atualizada, salvaremos
-  // seu conteúdo no localStorage. Será necessário converter o 
-  // conteúdo da variável de vetor para string com JSON. stringify(),
-  // já que só aceita dados do tipo string.
+  // seu conteúdo no localStorage. Será necessário converter o
+  // conteúdo da variável de vetor para string com JSON.stringify(),
+  // já que localStorage só aceita dados do tipo string.
   React.useEffect(() => {
     window.localStorage.setItem('squares', JSON.stringify(squares))
   }, [squares])

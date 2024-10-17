@@ -3,13 +3,13 @@ const nums = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 const nomes = ['Aurival', 'Joender', 'Neurivânia', 'Terebintina', 'Leucimar']
 
 /*
-    O método map() cria um NOVO VETOR, de tamanho IDÊNTICO ao do vetor
-    original, em que cada elemento  corresponde a uma transformação feita,
-    no vetor de origem, pela função passada com o parâmetro
+  O método map() cria um NOVO VETOR, de tamanho IDÊNTICO ao do vetor
+  original, em que cada elemento corresponde a uma transformação feita,
+  no vetor de origem, pela função passada como parâmetro
 */
 
 // map() que cria um novo vetor numérico em que cada elemento corresponde
-// ao quadrado do elemnto do vetor original 
+// ao quadrado do elemento do vetor original
 const quadrados = nums.map(n => n ** 2)
 
 console.log('Vetor original:', nums)

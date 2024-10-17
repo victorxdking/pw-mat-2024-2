@@ -14,15 +14,14 @@ function Tilt({children}) {
       'max-glare': 0.5
     })
 
+    // Quando o useEffect() retorna uma função, esta será executada
+    // uma vez na fase unmount do ciclo de vida do componente
+    return () => {
+      console.log('Componente descarregado!')
+      tiltNode.vanillaTilt.destroy()
+    }
 
-  // Quando o useEffect() retorna a função, esta será executada
-  // uma vez na fase unmount do clico de vida do componente
-  return () => {
-    console.log('Componente descarregado!')
-    tiltNode.vanillaTilt.destroy()
-}
-
-}, [])
+  }, [])
 
   // 🐨 adicione uma função `React.useEffect` aqui e use VanillaTilt para
   // fazer sua div parecer fantástica.
@@ -37,6 +36,7 @@ function Tilt({children}) {
   
   // 💰 Não se esqueça de retornar uma função de limpeza. VanillaTilt.init 
   // vai adicionar um objeto ao seu DOM, precisando ser eliminado:
+  // `return () => tiltNode.vanillaTilt.destroy()`
   
   // 💰 Não se esqueça de especificar seu vetor de dependências! No nosso
   // caso, samemos que o nodo do tilt nunca muda, então ajuste o vetor para `[]`.

@@ -13,16 +13,14 @@ import Exercicio04 from './exercicios/04'
 import Exercicio05 from './exercicios/05'
 import Exercicio06 from './exercicios/06'
 
-
 function App() {
-
   return (
     <>
       <h1>React Hooks</h1>
       <BrowserRouter>
         
         <ul>
-        <li> <Link to="/">Início</Link> </li>
+          <li> <Link to="/">Início</Link> </li>
           <li> <Link to="/01">Exercício 01</Link> </li>
           <li> <Link to="/02">Exercício 02</Link> </li>
           <li> <Link to="/03">Exercício 03</Link> </li>
@@ -30,11 +28,13 @@ function App() {
           <li> <Link to="/05">Exercício 05</Link> </li>
           <li> <Link to="/06">Exercício 06</Link> </li>
         </ul>
+        
         <hr />
 
         <Routes>
+          
           <Route path="/" element={
-            <div>Clique em um dos <em>Links</em> acima para exibir um exercício</div>
+            <div>Clique em um dos <em>links</em> acima para exibir um exercício</div>
           } />
 
           <Route path="/01" element={ <Exercicio01 /> } />
@@ -43,7 +43,7 @@ function App() {
           <Route path="/04" element={ <Exercicio04 /> } />
           <Route path="/05" element={ <Exercicio05 /> } />
           <Route path="/06" element={ <Exercicio06 /> } />
-          
+
         </Routes>
 
       </BrowserRouter>

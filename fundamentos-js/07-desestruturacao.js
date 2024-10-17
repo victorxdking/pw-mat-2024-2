@@ -1,6 +1,6 @@
 /*
-    Desestruturação é a operação pela qual é possível extrair valores de
-    vetores e objetos, atribuindo-os a variáveis avulsas
+  Desestruturação é a operação pela qual é possível extrair valores de
+  vetores e objetos, atribuindo-os a variáveis avulsas
 */
 
 // 1) DESESTRUTURAÇÃO DE VETOR
@@ -9,7 +9,7 @@ const carros = ['Fusca', 'Chevette', 'Opala']
 // Desestruturação
 const [carro1, carro2, carro3] = carros
 
-/* Fazendo o mesmo sem desestrturação
+/* Fazendo o mesmo sem desestruturação
 
 const carro1 = carros[0]
 const carro2 = carros[1]
@@ -30,7 +30,7 @@ console.log({b1, b3})
 const [, c2, c3] = carros
 console.log({c2, c3})
 
-/*************************************************************/
+/********************************************************** */
 
 // Traço separador
 console.log('-'.repeat(80))
@@ -44,33 +44,30 @@ console.log({x, y});
 // x = y
 // y = aux
 
-// Usando desestruturação para fazer swap (note que os ponto-e-vírgula
+// Usando desestruturação para fazer swap (note que os ponto-e-vírgula)
 // são necessários nesta linha e na anterior)
-[x, y] = [y, x]
+[x, y] = [y, x];
 
 console.log({x, y})
 
-
-/*************************************************************/
+/********************************************************** */
 
 // Traço separador
 console.log('-'.repeat(80))
 
 // 2) DESESTRUTURAÇÃO DE OBJETOS
 const pessoa = {
-    nome: 'Orkutilson Orozim',
-    sexo: 'M',
-    dataNasc: '2010-04-29',
-    email: 'orkutilson@gmail.com'
+  nome: 'Orkutilson Orozimbo Osório',
+  sexo: 'M',
+  dataNasc: '2010-04-29',
+  email: 'orkutilson@gmail.com'
 }
 
 /*
-    Na desestruturação de objetos, as veariáveis avulsas:
-    ~> DEVEM ter o MESMO NOME das propriedades do objeto
-    ~> Podem ser especificadas em qualquer ordem
-    ~> Pode ser feita a desesutruturação parcial
+  Na desestruturação de objetos, as variáveis avulsas:
+  ~> DEVEM ter o MESMO NOME das propriedades do objeto
+  ~> Podem ser especificadas em qualquer ordem
+  ~> Pode ser feita a desestruturação parcial
 */
-
 const { sexo, nome, email } = pessoa
 console.log({nome, sexo, email})
-
