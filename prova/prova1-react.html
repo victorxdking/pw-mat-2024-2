@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo do Índice de Massa Corporal (IMC)</title>
+</head>
+<body>
+
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <div id="root"></div>
+
+  <script type="text/babel">
+
+    function Form() {
+      // 1) hooks useState para controlar o peso, altura e o valor do IMC
+      const [peso, setPeso] = React.useState('')
+      const [altura, setAltura] = React.useState('')
+      const [imc, setIMC] = React.useState('')
+
+      // 2) calcular o IMC sempre que os inputs forem alterados
+      function calcularIMC() {
+        const imcCalculado = Number(peso) / (Number(altura) ** 2)
+        setIMC(imcCalculado.toFixed(4))  
+      }
+
+      return (
+        <>
+          <h1>Cálculo do Índice de Massa Corporal (IMC)</h1>
+          <form>
+            { /* 3) input para o peso do usuário */ }
+            <div>
+              <label>
+                <span>Peso:</span><br />
+                <input 
+                  type="number"
+                  value={peso}
+                  onChange={function(event) {setPeso(event.target.value) 
+                    calcularIMC() }} />
+              </label>
+            </div>
+            
+            { /* 4) input para a altura do usuário */ }
+            <div>
+              <label>
+                <span>Altura:</span><br />
+                <input 
+                  type="number"
+                  value={altura}
+                  onChange={function(event) {setAltura(event.target.value)
+                    calcularIMC()
+                  }} />
+              </label>
+            </div>
+          </form>
+
+          { /* 5) div para exibir o valor do IMC calculado */ }
+          <div>
+            IMC: {imc}
+          </div>
+        </>
+      )
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'))
+    root.render(<Form />)
+
+  </script>
+
+</body>
+</html>
