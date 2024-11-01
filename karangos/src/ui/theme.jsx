@@ -3,21 +3,21 @@ import { yellow, pink } from '@mui/material/colors'
 import { ptBR } from '@mui/x-data-grid/locales'
 
 const theme = createTheme({
-    palette: {
-        mode: 'dark',
-        primary: {
-            main: yellow[500]
-        },
-        secondary: {
-            main: pink[500]
-        }    
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: yellow[500]
     },
-    typography: {
-        h1: {
-            fontSize: '3rem',
-            fontWeight: 'bold'
-        }
+    secondary: {
+      main: pink[500]
     }
+  },
+  typography: {
+    h1: {
+      fontSize: '3rem',
+      fontWeight: 'bold'
+    }
+  }
 }, ptBR)
 
 export default theme

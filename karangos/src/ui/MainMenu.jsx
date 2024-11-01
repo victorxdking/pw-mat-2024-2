@@ -22,14 +22,13 @@ export default function MainMenu() {
         color="inherit" 
         aria-label="menu" 
         sx={{ mr: 2 }}
-        id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-            <MenuIcon />
-        </IconButton>
+        <MenuIcon />
+      </IconButton>
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -44,25 +43,26 @@ export default function MainMenu() {
           component={Link}
           to="/"
           divider
-          >
-            Início
-          </MenuItem>
+        >
+          Início
+        </MenuItem>
 
-          <MenuItem 
+        <MenuItem 
           onClick={handleClose}
           component={Link}
           to="/customers"
-          >
-            Listagem de clientes
-          </MenuItem>
+        >
+          Listagem de clientes
+        </MenuItem>
 
-          <MenuItem 
+        <MenuItem 
           onClick={handleClose}
           component={Link}
           to="/customers/new"
-          >
-            Cadastro de clientes
-          </MenuItem>
+        >
+          Cadastro de clientes
+        </MenuItem>
+        
       </Menu>
     </div>
   );

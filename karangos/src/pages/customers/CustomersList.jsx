@@ -1,74 +1,176 @@
-import Typography from "@mui/material/Typography";
+import Typography from '@mui/material/Typography'
 import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import { DataGrid } from '@mui/x-data-grid';
+import { feedbackWait, feedbackNotify, feedbackConfirm } from '../../ui/Feedback'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import IconButton from '@mui/material/IconButton'
+import { Link } from 'react-router-dom'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
-const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+export default function CustomersList() {
+
+  const columns = [
+    { 
+      field: 'id', 
+      headerName: 'Cód.', 
+      width: 90 
+    },
     {
-      field: 'firstName',
-      headerName: 'First name',
+      field: 'name',
+      headerName: 'Nome',
+      width: 200
+    },
+    {
+      field: 'birth_date',
+      headerName: 'Data Nasc.',
       width: 150,
-      editable: true,
+      valueGetter: (value, row) => {
+        if(value) {
+          const date = new Date(value)
+          return date.toLocaleDateString('pt-BR')
+        }
+        else return ''
+      }
     },
     {
-      field: 'lastName',
-      headerName: 'Last name',
+      field: 'municipality',
+      headerName: 'Município/UF',
+      width: 200,
+      valueGetter: (value, row) => row.municipality + '/' + row.state
+    },
+    {
+      field: 'phone',
+      headerName: 'Fone/Celular',
+      width: 160
+    },
+    {
+      field: 'email',
+      headerName: 'E-mail',
+      width: 200
+    },
+    {
+      field: '_actions',
+      headerName: 'Ações',
       width: 150,
-      editable: true,
-    },
-    {
-      field: 'age',
-      headerName: 'Age',
-      type: 'number',
-      width: 110,
-      editable: true,
-    },
-    {
-      field: 'fullName',
-      headerName: 'Full name',
-      description: 'This column has a value getter and is not sortable.',
       sortable: false,
-      width: 160,
-      valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-    },
-  ];
-  
-  const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 14 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 31 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 31 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 11 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+      renderCell: params => {
+        return <>
+          <Link to={'./' + params.id}>
+            <IconButton aria-label="editar">
+              <EditIcon />
+            </IconButton>
+          </Link>
+
+          <IconButton 
+            aria-label="excluir"
+            onClick={() => handleDeleteButtonClick(params.id)}
+          >
+            <DeleteForeverIcon color="error" />
+          </IconButton>
+        </>
+      }
+    }
   ];
 
-export default function CustomersList () {
-    return (
-        <>
-            { /* gutterBottom coloca um espaçamento extra abaixo do componente */}
-            <Typography variant="h1" gutterBottom>
-                Listagem de clientes
-            </Typography>
-            <Paper elevation={8} sx={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={rows}
-                    columns={columns}
-                    initialState={{
-                    pagination: {
-                        paginationModel: {
-                        pageSize: 5,
-                        },
-                    },
-                    }}
-                    pageSizeOptions={[5]}
-                    checkboxSelection
-                    disableRowSelectionOnClick
-                />
-            </Paper>
-        </>
-    )
+  const [state, setState] = React.useState({
+    customers: []
+  })
+  const {
+    customers
+  } = state
+
+  React.useEffect(() => {
+    loadData()
+  }, [])  // Vetor de dependências vazio, executa uma vez no mount
+
+  async function loadData() {
+    feedbackWait(true)
+    try {
+      const response = await fetch(
+        import.meta.env.VITE_API_BASE + '/customers'
+      )
+      const result = await response.json()
+
+      setState({ ...state, customers: result })
+    }
+    catch (error) {
+      console.log(error)
+      feedbackNotify('ERRO: ' + error.message, 'error')
+    }
+    finally {
+      feedbackWait(false)
+    }
+  }
+
+  async function handleDeleteButtonClick(id) {
+    if(await feedbackConfirm('Deseja realmente excluir este item?')) {
+      feedbackWait(true)
+      try {
+        // Envia a requisição para exclusão
+        await fetch(
+          import.meta.env.VITE_API_BASE + `/customers/${id}`,
+          { method: 'DELETE' }
+        )
+
+        // Atualiza os dados do datagrid
+        loadData()
+
+        feedbackNotify('Exclusão efetuada com sucesso.')
+      }
+      catch (error) {
+        console.log(error)
+        feedbackNotify('ERRO: ' + error.message, 'error')
+      }
+      finally {
+        feedbackWait(false)
+      }
+    }
+  }
+
+  return (
+    <>
+      { /* gutterBottom coloca um espaçamento extra abaixo do componente */ }
+      <Typography variant="h1" gutterBottom>
+        Listagem de clientes
+      </Typography>
+
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'right', // Alinhado à direita
+        mb: 2   // Margem inferior (margin-bottom)
+      }}>
+        <Link to="./new">
+          <Button 
+            variant="contained" 
+            size="large"
+            color="secondary"
+            startIcon={ <AddCircleIcon /> }
+          >
+            Novo cliente
+          </Button>
+        </Link>
+      </Box>
+
+      <Paper elevation={8} sx={{ height: 400, width: '100%' }}>
+        <DataGrid
+          rows={customers}
+          columns={columns}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+        />
+      </Paper>
+    </>
+  )
 }
