@@ -3,9 +3,12 @@ import { Routes, Route } from 'react-router-dom'
 import Homepage from '../pages/Homepage'
 
 import CustomersList from '../pages/customers/CustomersList'
-import CustomersForm from '../pages/customers/CustomersForm' 
+import CustomersForm from '../pages/customers/CustomersForm'
+
 import CarsList from '../pages/cars/CarsList'
-import CarsForm from '../pages/cars/CarsForm' 
+import CarsForm from '../pages/cars/CarsForm'
+
+import About from '../pages/About'
 
 export default function AppRoutes() {
   return (
@@ -19,7 +22,8 @@ export default function AppRoutes() {
       <Route path="/cars" element={ <CarsList /> } />
       <Route path="/cars/new" element={ <CarsForm /> } />
       <Route path="/cars/:id" element={ <CarsForm /> } />
-
+      
+      <Route path="/about" element={ <About /> } />
     </Routes>
   )
 }
